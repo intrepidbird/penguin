@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penguin Chatbot</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f2f2f2;
+        }
+
+        .chat-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .chat-container h1 {
+            font-size: 24px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .chat-container .chat-log {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+        }
+
+        .chat-container .chat-log p {
+            margin: 0;
+            padding: 5px 0;
+        }
+
+        .chat-container .user-message {
+            background-color: #e6f2ff;
+            color: #333333;
+            border-radius: 5px;
+            padding: 5px 10px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .chat-container .bot-message {
+            background-color: #f2f2f2;
+            color: #333333;
+            border-radius: 5px;
+            padding: 5px 10px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .chat-container .input-group {
+            margin-bottom: 20px;
+        }
+
+        .chat-container .input-group input {
+            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            width: 80%;
+        }
+
+        .chat-container .input-group button {
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chat-container">
+            <h1>Penguin Chatbot</h1>
+            <div class="chat-log" id="chatLog"></div>
+            <div class="input-group">
+                <input type="text" class="form-control" id="userInput" placeholder="Type your message...">
+                <button class="btn btn-primary" id="sendButton">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap & jQuery JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function() {
+            // Penguin Chatbot Responses
+            const responses = [
+                "🐧 Pingu!",
+                "🐧 Pingu pingu!",
+                "🐧 Pingu pingu pingu!",
+                "🐧 Pingu pingu pingu pingu!",
+                "🐧 Pingu pingu pingu pingu pingu!"
+            ];
+
+            // Function to generate random response from the array
+            function getRandomResponse() {
+                const randomIndex = Math.floor(Math.random() * responses.length);
+                return responses[randomIndex];
+            }
+
+            // Function to add user message to the chat log
+            function addUserMessage(message) {
+                const userMessage = `<p class="user-message">${message}</p>`;
+                $('#chatLog').append(userMessage);
+            }
+
+            // Function to add bot message to the chat log
+            function addBotMessage(message) {
+                const botMessage = `<p class="bot-message">${message}</p>`;
+                $('#chatLog').append(botMessage);
+            }
+
+            // Function to handle user input and generate bot response
+            function handleUserInput() {
+                const userInput = $('#userInput').val();
+                addUserMessage(userInput);
+                $('#userInput').val('');
+
+                setTimeout(function() {
+                    const botResponse = getRandomResponse();
+                    addBotMessage(botResponse);
+                }, 500);
+            }
+
+            // Event listener for send button click
+            $('#sendButton').click(function() {
+                handleUserInput();
+            });
+
+            // Event listener for enter key press
+            $('#userInput').keypress(function(e) {
+                if (e.which === 13) {
+                    handleUserInput();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
