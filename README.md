@@ -1,2 +1,2 @@
-# penguin
+# Penguin
 Penguin AI Chatbot
